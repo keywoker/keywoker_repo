@@ -1,0 +1,42 @@
+<openerp>
+    <data>
+
+        <record id="product_make_csv_view" model="ir.ui.view">
+	      <field name="name">Make Import Image CSV</field>
+	      <field name="model">product.csv.image</field>
+	      <field name="priority">1</field>
+	      <field name="arch" type="xml">
+	        <form string="Make Image Import" version="7.0">
+	            <group col="2">
+	                <field name="file_data" filename="file_fname"/>
+	            </group>
+	            <footer>
+	                <button name="get_csv" string="_Make CSV" type="object" class="oe_highlight"/>
+	                or
+	                <button string="Cancel" class="oe_link" special="cancel"/>
+	            </footer>
+	        </form>
+	      </field>
+    	</record>
+        <record id="action_make_image_csv" model="ir.actions.act_window">
+	      <field name="name">Make Import Image CSV</field>
+	      <field name="type">ir.actions.act_window</field>
+	      <field name="res_model">product.csv.image</field>
+	      <field name="view_type">form</field>
+	      <field name="view_mode">form</field>
+	      <field name="target">new</field>
+	      <field name="view_id" ref="product_make_csv_view"/>
+    	</record>
+
+		<record id="view_image_import_form" model="ir.ui.view">
+            <field name="name">product.image.import.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+				<xpath expr="//form[@string='Product']/field[@name='is_product_variant']" position="before">
+					 <button type="action" name="%(action_make_image_csv)d" string="Make Import Image CSV" />
+				</xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
